@@ -25,6 +25,12 @@ jobs:
       - name: Build static export
         run: npm run build
 
+      - name: Prepare App Service package
+        run: |
+          cp scripts/azure-server.js out/server.js
+          echo '{"name":"everyoung","version":"1.0.0","scripts":{"start":"node server.js"}}' \
+            > out/package.json
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
